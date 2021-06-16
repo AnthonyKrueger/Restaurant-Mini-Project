@@ -16,11 +16,11 @@ const tables = [
     }
 ];
 
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/../html/home.html')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/../public/html/home.html')));
 
-app.get('/reserve', (req, res) => res.sendFile(path.join(__dirname, '/../html/reserve.html')));
+app.get('/reserve', (req, res) => res.sendFile(path.join(__dirname, '/../public/html/reserve.html')));
 
-app.get('/tables', (req, res) => res.sendFile(path.join(__dirname, '/../html/tables.html')));
+app.get('/tables', (req, res) => res.sendFile(path.join(__dirname, '/../public/html/tables.html')));
 
 app.get('/api/tables', (req, res) => res.json(tables));
 
