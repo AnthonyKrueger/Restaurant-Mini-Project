@@ -22,14 +22,7 @@
                     </div>
                     <div class = "card-body">
                         <ul class = "list-group" id="reservations">
-                            <li class = "list-group-item">
-                                <div class = "row">
-                                    <h3>Name: Anthony</h3>
-                                </div>
-                                <div class = "row">
-                                    <h4>Phone: ####</h4>
-                                </div>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
@@ -43,18 +36,14 @@
                     </div>
                     <div class = "card-body">
                         <ul class = "list-group" id="waitList">
-                            <li class = "list-group-item">
-                                <div class = "row">
-                                    <h3>Name: Anthony</h3>
-                                </div>
-                                <div class = "row">
-                                    <h4>Phone: ####</h4>
-                                </div>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+            <a href="/"><button class ="btn-lg">Home</button></a>
         </div>
     </div>
     <script type="text/javascript">
@@ -70,8 +59,49 @@
             .then((data) => {
                 const reservations = data;
                 for(i = 0;i < reservations.length; i++) {
-                    var listItem = document.createElement("li")
-                    listItem.classList += "list-group-item";
+                    const listItem = $("<li></li>").addClass("list-group-item")
+                    const nameRow = $("<div></div>").addClass("row")
+                    const nameEl = $("<h3></h3>").text(`Name: ${reservations[i].name}`)
+                    const phoneRow = $("<div></div>").addClass("row")
+                    const phoneEl = $("<h4></h4>").text(`Phone #: ${reservations[i].phone}`)
+                    const numRow = $("<div></div>").addClass("row")
+                    const numEl = $("<h4></h4>").text(`Order #: ${i + 1}`)
+                    nameRow.append(nameEl)
+                    listItem.append(nameRow)
+                    phoneRow.append(phoneEl)
+                    listItem.append(phoneRow)
+                    numRow.append(numEl)
+                    listItem.append(numRow)
+                    reservationsList.append(listItem)
+                }
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+    fetch('/api/waitList', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+                const waitListData = data;
+                for(i = 0;i < waitList.length; i++) {
+                    const listItem = $("<li></li>").addClass("list-group-item")
+                    const nameRow = $("<div></div>").addClass("row")
+                    const nameEl = $("<h3></h3>").text(`Name: ${waitListData[i].name}`)
+                    const phoneRow = $("<div></div>").addClass("row")
+                    const phoneEl = $("<h4></h4>").text(`Phone #: ${waitListData[i].phone}`)
+                    const numRow = $("<div></div>").addClass("row")
+                    const numEl = $("<h4></h4>").text(`Order #: ${i + 5}`)
+                    nameRow.append(nameEl)
+                    listItem.append(nameRow)
+                    phoneRow.append(phoneEl)
+                    listItem.append(phoneRow)
+                    numRow.append(numEl)
+                    listItem.append(numRow)
+                    waitList.append(listItem)
                 }
             })
             .catch((error) => {
