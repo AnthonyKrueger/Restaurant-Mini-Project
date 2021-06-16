@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserve Table</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+</head>
+<body>
+    <h1>Reserve</h1>
+    <div class = "container">
+        <form method="POST" role="form">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" />
+            </div>
+    
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="text" class="form-control" id="email" />
+            </div>
+    
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="text" class="form-control" id="phone" />
+            </div>
+    
+            <div class="form-group">
+              <label for="unique">Unique ID</label>
+              <input type="text" class="form-control" id="unique" />
+            </div>
+          </form>
+          <div class="text-right">
+            <button
+              type="submit"
+              class="btn btn-primary btn-md"
+              id="add-btn"
+            >
+              <span class="fa fa-fire"></span> Reserve Your Table
+            </button>
+          </div>
+    </div>
+    <script type="text/javascript">
+      
+        const addBtn = document.getElementById('add-btn');
+        
+        // Question: What is "e" short for?
+        addBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          
+          // Question: What does this code do?
+          let tableName = document.getElementById('name').value.trim();
+          let tableEmail = document.getElementById('email').value.trim();
+          let tablePhone = document.getElementById('phone').value.trim();
+          let tableUnique = document.getElementById('unique').value.trim();
+          
+          let newTable = {
+            name: tableName,
+            email: tableEmail,
+            phone: tablePhone,
+            unique: tableUnique,
+          };
+  
+          // Question: What does this code do??
+          fetch('/api/tables', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newTable),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              console.log('Reserved:', data);
+              alert(`Reserving Table: ${data.name}`);
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+        });
+      </script>
+</body>
+</html>
