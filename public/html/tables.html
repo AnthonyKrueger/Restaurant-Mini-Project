@@ -4,9 +4,81 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Reserved Tables</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+    <script src="https://code.jquery.com/jquery.js"></script>
 </head>
 <body>
-    <h1>Tables</h1>
+    <div class = "container">
+        <div class="jumbotron">
+            <h1>Reserved Tables</h1>
+        </div>
+        <div class = "row">
+            <div class ="col-12">
+                <div class="card">
+                    <div class = "card-header">
+                        <h3>Reservations</h3>
+                    </div>
+                    <div class = "card-body">
+                        <ul class = "list-group" id="reservations">
+                            <li class = "list-group-item">
+                                <div class = "row">
+                                    <h3>Name: Anthony</h3>
+                                </div>
+                                <div class = "row">
+                                    <h4>Phone: ####</h4>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class = "row">
+            <div class ="col-12">
+                <div class="card">
+                    <div class = "card-header">
+                        <h3>Wait List</h3>
+                    </div>
+                    <div class = "card-body">
+                        <ul class = "list-group" id="waitList">
+                            <li class = "list-group-item">
+                                <div class = "row">
+                                    <h3>Name: Anthony</h3>
+                                </div>
+                                <div class = "row">
+                                    <h4>Phone: ####</h4>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    const reservationsList = $("#reservations");
+    const waitList = $("#waitList");
+    fetch('/api/tables', {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+            .then((response) => response.json())
+            .then((data) => {
+                const reservations = data;
+                for(i = 0;i < reservations.length; i++) {
+                    var listItem = document.createElement("li")
+                    listItem.classList += "list-group-item";
+                }
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+
+    
+    </script>
 </body>
 </html>

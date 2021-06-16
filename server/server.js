@@ -15,6 +15,7 @@ const tables = [
         unique: 1
     }
 ];
+const waitList = [];
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, '/../public/html/home.html')));
 
@@ -24,11 +25,18 @@ app.get('/tables', (req, res) => res.sendFile(path.join(__dirname, '/../public/h
 
 app.get('/api/tables', (req, res) => res.json(tables));
 
+app.get('/api/waitList', (req, res) => res.json(waitList));
+
 app.post('/api/tables', (req, res) => {
     
     const newTable = req.body;
-    console.log(newTable);
-    tables.push(newTable);
+    if(tables.length < 5) {
+        tables.push(newTable);
+    }
+    else {
+        waitList.push(newTable);
+        console.log("WaitList: ", waitList);
+    }
     res.json(newTable);
 })
 
